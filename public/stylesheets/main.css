@@ -1,0 +1,50 @@
+/* img {
+    width: 300px;
+}
+
+.detail {
+    width: 400px;
+} */
+
+.homepage {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.homepage section {
+    text-align: center;
+    background-color: palevioletred;
+    color: white;
+    padding: 10px;
+    display: block;
+}
+
+img.profile-img {
+    width: 60px;
+}
+.home-momentimg{
+    max-width: 400px;
+}
+.userpage img {
+    max-width: 100px;
+}
+
+.profile-image {
+    max-height: 150px;
+}
+
+.del {
+    color: blue;
+    background-color: #FFFFFF;
+    border: 0px none;
+    text-decoration: underline;
+    font-size: 15px;
+}
+.del:hover{
+    color: red;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+

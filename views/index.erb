@@ -1,0 +1,26 @@
+<h1>Moments</h1>
+
+<div class="homepage">
+
+<% results.each do |result| %>
+ <% if result['user_text'] != nil || result['img_url'] != nil%>
+    <section>
+            <img src="<%=result['user_avatar_url']%>" alt="" class="profile-img">
+
+
+
+            <% if result['user_name'] != nil && result['user_name'] != ""%>
+                <%= result['user_name']%> said:
+            <%else%>
+                <%= result['email']%> said:
+            <%end%>
+<a href="/users/<%= user['id']%>/user-moments">see more</a>
+
+        <img src="<%= result["image_url"]%>" alt="" class="home-momentimg">
+        <p class="user-text"><%= result["user_text"]%></p>
+    </section>
+<% end %>
+<%end%>
+
+</div>
+

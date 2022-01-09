@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <%# <style>
+    .del {
+        color: blue;
+        background-color: #FFFFFF;
+        border: 0px none;
+        text-decoration: underline;
+        font-size: 15px;
+    }
+    .del:hover{
+        color: red;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    div {
+        display: inline-block;
+    }
+    
+    </style> %>
+</head>
+<body>
+    
+
+<h1>User Profile</h1>
+
+<h2><%= user["user_name"] %></h2>
+<img src="<%= user["user_avatar_url"]%>" alt="<%= %>" class="detail">
+<p><b>Email: </b><%= user["email"] %></p>
+
+
+<% if logged_in? %>
+<a href="/users/<%=user['id']%>/edit">edit</a>
+
+<% end %>
+</body>
+</html>

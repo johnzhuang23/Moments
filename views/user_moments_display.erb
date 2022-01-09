@@ -1,0 +1,17 @@
+
+<h1>HIS Moments</h1>
+
+<div class="userpage">
+
+<% usermoments.each do |usermoment| %>
+<section>
+    <img src="<%=usermoment['user_avatar_url']%>" alt="" class="profile-img">
+
+    <img src="<%= usermoment["image_url"]%>" alt="">
+    <p class="user-text"><%= usermoment["user_text"]%></p>
+</section>
+
+
+
+<% end %>
+</div>
