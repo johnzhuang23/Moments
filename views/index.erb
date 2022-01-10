@@ -7,17 +7,18 @@
     <section>
             <img src="<%=result['user_avatar_url']%>" alt="" class="profile-img">
 
-
-
             <% if result['user_name'] != nil && result['user_name'] != ""%>
                 <%= result['user_name']%> said:
             <%else%>
                 <%= result['email']%> said:
             <%end%>
-<a href="/users/<%= user['id']%>/user-moments">see more</a>
+        <a href="/users/<%= result['user_id']%>/moments">see more moments of this user</a>
 
         <img src="<%= result["image_url"]%>" alt="" class="home-momentimg">
         <p class="user-text"><%= result["user_text"]%></p>
+        <a href="/users/moments/<%= result['id']%>">comment</a>
+        <a href="">like</a>
+        <a href="">block</a>
     </section>
 <% end %>
 <%end%>

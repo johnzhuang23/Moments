@@ -105,14 +105,16 @@ get '/' do
   end
 
   conn = PG.connect(dbname: 'dating_app')
-  sql = "select * from users full join moments on users.email = moments.email order by moments.id DESC;"
+  sql = "select users.id as user_id, * from users full join moments on users.email = moments.email order by moments.id DESC;"
   results = conn.exec_params(sql)
+  # binding.pry
 
   conn.close
 
   erb(:index, locals: {
     user: user,
     results: results
+    # userpage: userpage
     })
 end
 
@@ -142,15 +144,15 @@ get '/users/:id' do
   })
 end
 
-get '/users/:id/moments' do
+get '/mymoments' do
 
   conn = PG.connect(dbname: 'dating_app')
 
   user_id = params["id"]
-  users = conn.exec("SELECT * FROM users where id=#{user_id};")
+  users = conn.exec("SELECT * FROM users where id=#{loggedin_user()["id"]};")
   user = users[0]
 
-  sql = "select * from users full join moments on users.email = moments.email where users.id= '#{params["id"]}' order by moments.id DESC;"
+  sql = "select * from users full join moments on users.email = moments.email where users.id= '#{loggedin_user()["id"]}' order by moments.id DESC;"
   usermoments = conn.exec(sql)
   conn.close
 
@@ -161,7 +163,7 @@ get '/users/:id/moments' do
 
 end
 
-get '/users/:id/user-moments' do
+get '/users/:id/moments' do
 
   conn = PG.connect(dbname: 'dating_app')
 
@@ -177,10 +179,6 @@ get '/users/:id/user-moments' do
     usermoments: usermoments,
     user: user
   })
-
-
-
-
 end
 
 
@@ -231,10 +229,41 @@ delete '/moments/:id/delete' do
 
 end
 
+get '/users/moments/:id' do
+
+  conn = PG.connect(dbname: 'dating_app')
+  user_id = params["id"]
+  users = conn.exec("SELECT * FROM users where id=#{loggedin_user()["id"]};")
+  user = users[0]
+
+  sql = "select * from moments where id = #{params['id']}"
+  results = conn.exec(sql)
+  
+  sql2 = "select * from comments where moment_id = #{params['id']};"
+
+  comments = conn.exec(sql2)
+
+  conn.close
 
 
+  erb(:user_moment, locals: {
+    results: results,
+    user: user,
+    comments: comments
+  })
+end
 
 
+post '/comments/moments/:id' do
+  params.to_s
+  if logged_in?
+    conn = PG.connect(dbname: 'dating_app')
+    sql = "insert into comments (content, email, moment_id) values ('#{params['content']}', '#{loggedin_user()["email"]}', #{params['id']});"
+    result = conn.exec_params(sql)
+    conn.close
+  end
+  redirect '/users/moments/:id'
+end
 
 
 
