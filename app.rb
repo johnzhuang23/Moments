@@ -15,7 +15,8 @@ def logged_in?()
 end
 
 def loggedin_user()
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
+
   sql = "select * from users where id = #{session[:user_id]}"
   result = conn.exec(sql)
   user = result.first
@@ -24,7 +25,7 @@ def loggedin_user()
 end
 
 def db_query(sql, params = [])
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   result = conn.exec_params(sql, params)
   conn.close
   return result
@@ -50,7 +51,7 @@ post '/signup' do
 
   password = params["password"]
   email = params["email"]
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   password_digest = BCrypt::Password.create(password)
   sql = "insert into users (email, password_digest) values ('#{email}', '#{password_digest}');"
   conn.exec(sql)
@@ -73,7 +74,7 @@ post '/login' do
   password = params["password"]
   email = params["email"]
   
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   sql = "select * from users where email = '#{email}';"
   result = conn.exec(sql)
   conn.close
@@ -98,13 +99,13 @@ end
 
 get '/' do
   if logged_in?
-    conn = PG.connect(dbname: 'dating_app')
+    conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
     sql = "select * from users where id = #{session[:user_id]};"
     user = conn.exec(sql)[0]
     conn.close
   end
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   sql = "select users.id as user_id, * from users full join moments on users.email = moments.email order by moments.id DESC;"
   results = conn.exec_params(sql)
   # binding.pry
@@ -120,7 +121,7 @@ end
 
 get '/moments/new' do
   
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
     sql = "select * from users where id = #{session[:user_id]};"
     user = conn.exec(sql)[0]
     conn.close
@@ -134,7 +135,7 @@ end
 # SHOW
 get '/users/:id' do
   user_id = params["id"]
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   users = conn.exec("SELECT * FROM users where id=#{user_id};")
   user = users[0]
   conn.close
@@ -146,7 +147,7 @@ end
 
 get '/mymoments' do
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
 
   user_id = params["id"]
   users = conn.exec("SELECT * FROM users where id=#{loggedin_user()["id"]};")
@@ -165,7 +166,7 @@ end
 
 get '/users/:id/moments' do
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
 
   user_id = params["id"]
   users = conn.exec("SELECT * FROM users where id=#{user_id};")
@@ -186,7 +187,7 @@ end
 post '/moments' do
   params.to_s
   if logged_in?
-    conn = PG.connect(dbname: 'dating_app')
+    conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
     sql = "insert into moments (image_url, user_text, email) values ('#{params['image_url']}', '#{params['user_text']}', '#{loggedin_user()["email"]}');"
     result = conn.exec_params(sql)
     conn.close
@@ -208,7 +209,7 @@ put '/users/:id' do
   
   sql = "UPDATE users SET user_name = '#{params['name']}', user_avatar_url = '#{params['user_avatar_url']}' WHERE id = '#{params['id']}';"
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   conn.exec(sql)
   conn.close
 
@@ -219,7 +220,7 @@ end
 # DELETE
 delete '/moments/:id/delete' do
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
 
   sql = "delete from moments where id = '#{params["id"]}';"
   conn.exec(sql)
@@ -231,7 +232,7 @@ end
 
 get '/users/moments/:id' do
 
-  conn = PG.connect(dbname: 'dating_app')
+  conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
   user_id = params["id"]
   users = conn.exec("SELECT * FROM users where id=#{loggedin_user()["id"]};")
   user = users[0]
@@ -256,7 +257,7 @@ end
 post '/comments/moments/:id' do
   params.to_s
   if logged_in?
-    conn = PG.connect(dbname: 'dating_app')
+    conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'dating_app'})
     sql = "insert into comments (content, email, moment_id) values ('#{params['content']}', '#{loggedin_user()["email"]}', #{params['id']});"
     result = conn.exec_params(sql)
     conn.close
