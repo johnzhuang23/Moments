@@ -253,7 +253,6 @@ get '/users/moments/:id' do
   })
 end
 
-
 post '/comments/moments/:id' do
   params.to_s
   if logged_in?
@@ -262,7 +261,7 @@ post '/comments/moments/:id' do
     result = conn.exec_params(sql)
     conn.close
   end
-  redirect '/users/moments/:id'
+  redirect "/users/moments/#{params['id']}"
 end
 
 
