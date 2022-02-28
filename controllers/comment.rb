@@ -1,7 +1,6 @@
 require 'sinatra/reloader' if development?
 require 'pg' 
 enable :sessions
-require 'pry'
 
 get '/users/posts/:id' do
 

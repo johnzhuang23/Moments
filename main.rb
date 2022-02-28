@@ -2,7 +2,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'pg' 
-require 'pry' 
 require 'bcrypt' 
 require 'cloudinary'
 
@@ -67,7 +66,6 @@ get '/' do
   conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'moments_ruby'})
   sql2 = "select users.id as user_id, * from users full join posts on users.id = posts.user_id order by posts.id DESC;"
   results = conn.exec_params(sql2)
-  # binding.pry
 
   conn.close
 
