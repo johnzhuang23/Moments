@@ -1,22 +1,18 @@
 
 require 'sinatra'
-require 'sinatra/reloader' 
+require 'sinatra/reloader' if development?
 require 'pg' 
 require 'pry' 
 require 'bcrypt' 
 require 'cloudinary'
 
-# cloudinary_options = { # this is for cloudinary to allow the storing of pictures (HOW WILL THIS WORK WHEN ITS HOSTED ON THE CLOUD? NEED A SECRET FILE SOMEWHERE MAYBE?)
+# cloudinary_options = { # this is for cloudinary to allow the storing of pictures 
 #   cloud_name: 'dciyilvza',
 #   api_key: ENV['CLOUDINARY_API_KEY'],
 #   api_secret: ENV['CLOUDINARY_API_SECRET']
 # }
 
 enable :sessions #to create a login session for the user
-
-
-
-
 
 def logged_in?()
   if session[:user_id]

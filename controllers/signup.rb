@@ -1,5 +1,4 @@
-require 'sinatra/reloader' 
-
+require 'sinatra/reloader' if development?
 require 'pg' 
 require 'bcrypt' 
 
