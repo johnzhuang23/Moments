@@ -3,7 +3,6 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'pg' 
 require 'bcrypt' 
-require 'cloudinary'
 
 # cloudinary_options = { # this is for cloudinary to allow the storing of pictures 
 #   cloud_name: 'dciyilvza',
@@ -37,15 +36,6 @@ def db_query(sql, params = [])
   conn.close
   return result
 end
-
-# def create_moment(name, image_url, text, like_count)
-#   db_query("INSERT INTO posts (name, image_url, text, like_count) VALUES ($1, $2, $3, $4)", [name, image_url, text, like_count])
-# end
-
-# def delete_moment(id)
-#   sql = "DELETE FROM posts WHERE id = $1;"
-#   db_query(sql, [id])
-# end
 
 require_relative "controllers/signup.rb"
 require_relative "controllers/login.rb"
