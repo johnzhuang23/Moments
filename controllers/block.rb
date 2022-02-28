@@ -4,7 +4,7 @@ enable :sessions
 
 post "/users/:id/block" do
     redirect '/login' unless logged_in?
-    # for leayout part
+    # for layout part
     conn = PG.connect(ENV['DATABASE_URL'] || {dbname: 'moments_ruby'})
     users = conn.exec("SELECT * FROM users where id=#{loggedin_user()["id"]};")
     user = users[0]
