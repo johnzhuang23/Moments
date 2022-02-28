@@ -1,50 +1,281 @@
-/* img {
-    width: 300px;
+html {
+scroll-behavior: smooth;
+font-family: 'Roboto Mono', monospace;
+}
+.nav {
+background: #19314d;
+position: fixed;
+width: 15%;
+float: left;
+margin-right: -100%;
+bottom: 0;
+top: 0;
+padding: 0;
+text-align: center;
+}
+.nav h3{
+    color: tomato;
+}
+.nav a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: bisque;
+    padding: 2% 10% 2% 10%;
 }
 
-.detail {
-    width: 400px;
+.nav a:hover{
+    background-color: bisque;
+    color: #19314d;
+}
+
+section{
+    float: left;
+    width: 100%;
+}
+.content {
+    overflow: scroll;
+    text-align: center;
+    height: 100%;
+    margin-left: 15%;
+    vertical-align:middle;
+}
+
+.btn-logout{
+    text-decoration: none;
+border: none;
+background-color: #19314D;
+color:bisque;
+padding: 2% 10% 2% 10%;
+font-size: 1.1em;
+cursor: pointer;
+}
+
+.title-flex {
+    display: flex;
+    align-items: center;
+border: solid gray 0.1px;
+width: 80%;
+height: 0;
+margin:  0 auto;
+}
+
+.login-form{
+    display: block;
+    background-color: #eee;
+    width: 300px;
+    margin: 0 auto;
+}
+
+
+.login-form input {
+    line-height: 30px;
+    width: 250px;
+    font-size: 14px;
+}
+
+.login-form label {
+    line-height: 3.6em;
+}
+
+.login-form button {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color:#19314d;
+    border: solid 1px;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+
+.login-form button :hover {
+background-color: #19314d;
+    color:bisque;
+
+}
+
+.post {
+    display: block;
+    background-color: lightsteelblue;
+    width: 60vw;
+    height: 70vh;
+    margin: 0 auto;
+}
+.post-edit {
+    background-color: lightcyan;
+    display: block;
+    width: 60vw;
+    height: 70vh;
+    margin: 0 auto;
+}
+.post-edit textarea,
+.post textarea{
+    resize:none;
+    width: 55vw;
+    height: 40vh;
+    margin: 0 auto;
+    margin-top: 5%;
+    font-size: x-large;
+}
+
+.upload-image {
+    margin: 2% auto;
+}
+.upload-image input {
+    width: 55vw;
+    height: 5vh;
+}
+
+.btn-post{
+    width: 10vw;
+    height: 5vh;
+    margin-top: 3%;
+    background-color: tomato;
+    font-size: large;
+    color:bisque;
+}
+
+.card {
+    border: 1px solid #19314d;
+    width: 40vw;
+    height: 20vw;
+    margin: 0 auto;
+    background-color: #eee;
+    display: flex;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+}
+.card-textonly {
+    border: 1px solid red;
+    width: 40vw;
+    height: 20vw;
+    margin: 0 auto;
+}
+/* .text-only{
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word; 
+    font-size: xx-large;
 } */
+.card img{
+    height: 95%;
+}
+
+.user-text{
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word; 
+    margin: 3%;
+    font-size: xx-large;
+}
+
+.btns{
+    margin-bottom: 2%;
+}
+
+.btn-edit{
+    display: inline-block;
+    width: 5vw;
+    height: 5vh;
+    margin-top: 10px;
+    background-color: lightcyan;
+    font-size: large;
+}
+.btn-edit a {
+    text-decoration: none;
+    color:black;
+}
+.btn-delete{
+    display: inline-block;
+}
+
+.btn-delete button{ 
+    display: inline-block;
+    width: 5vw;
+    height: 5vh;
+    margin-top: 10px;
+    background-color: lightcoral;
+    font-size: large;
+    text-decoration: none;
+    color:black;
+    cursor: pointer;
+}
 
 .homepage {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+/* padding: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 10px; */
+display: block;
 }
 
-.homepage section {
-    text-align: center;
-    background-color: palevioletred;
-    color: white;
-    padding: 10px;
+.card-homepage {
+width: 60%;
+background-color: bisque;
+overflow: hidden;
+margin: 0 auto;
+margin-bottom: 3%;
+border-radius: 10px;
+}
+
+.card-homepage p{
+    padding: 10px 0 10px 20px;
+    text-align: left;
+}
+.card-homepage-header {
+    display: flex;
+    justify-content: start;
+    margin-left: 20px;
+    margin-top: 10px;
+    gap:5px;
+}
+
+.card-homepage-content {
+    margin: 3%;
+    color: #19314d;
+}
+.card-homepage-image {
+    width: 60%;
     display: block;
+    padding: 10px;
+}
+.card-homepage-image img{
+    border-radius: 10px;;
 }
 
-img.profile-img {
+.card-homepage-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3%;
+    padding: 10px;
+
+}
+
+.profile-image{
     width: 60px;
-}
-.home-momentimg{
-    max-width: 400px;
-}
-.userpage img {
-    max-width: 100px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
-.profile-image {
-    max-height: 150px;
-}
-
-.del {
-    color: blue;
-    background-color: #FFFFFF;
-    border: 0px none;
-    text-decoration: underline;
-    font-size: 15px;
-}
-.del:hover{
-    color: red;
+.card-homepage-footer button {
+    text-decoration: none;
+    font-size: 2em;
+    background-color: bisque;
     border: none;
-    cursor: pointer;
-    text-decoration: underline;
 }
 
+.form-comment textarea{
+resize:none;
+width: 40vw;
+height: 20vh;
+margin: 0 auto;
+font-size: x-large;
+}
+
+.btn-comment{
+    width: 10vw;
+    height: 5vh;
+    margin-top: 1%;
+    background-color: tomato;
+    font-size: large;
+    color:bisque;
+}

@@ -1,0 +1,34 @@
+
+
+<h1>Update My Profile</h1> 
+    <% if user['user_avatar_url'] %>
+        <img src=<%=user['user_avatar_url'] %> alt="" class="profile-image" >
+    <% end %>
+
+    <form action="/users/<%=user['id']%>" method="post">
+        <input type="hidden" name="_method" value="put">
+        
+        <%if user['user_name'] == nil %>
+            <p>You have not set your user name</p>
+        <% else %>
+            <p>current username: <%=user['username']%> </p>
+        <% end %>
+        
+        <p><label for="">change your user name to </label>
+        <input type="text" name="name" value="<%= user["user_name"]%>"></p>
+        
+        <%if user['user_avatar_url'] == nil %>
+            <p>You have not set your profile picture </p>
+        <% else %>
+            <p>your current profile picture is: <%=user['user_avatar_url']%> </p>
+        <% end %>
+
+        <p><label for="">update your profile picture </label>
+        <input type="url" name="user_avatar_url" value="<%= user['user_avatar_url']%>"></p>
+        
+        <p><b>Email: </b><%= user["email"] %></p>
+        <p><b>Blacklist: </b></p>
+
+        <button>Update</button>
+
+    </form>

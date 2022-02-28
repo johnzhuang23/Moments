@@ -2,27 +2,29 @@
 
 <div class="homepage">
 
-<% results.each do |result| %>
- <% if result['user_text'] != nil || result['img_url'] != nil%>
-    <section>
-            <img src="<%=result['user_avatar_url']%>" alt="" class="profile-img">
+    <% results.each do |result| %>
+        <% if result['content'] != nil || result['img_url'] != nil%>
+            <div class="card-homepage">
 
-            <% if result['user_name'] != nil && result['user_name'] != ""%>
-                <%= result['user_name']%> said:
-            <%else%>
-                <%= result['email']%> said:
-            <%end%>
-        <a href="/users/<%= result['user_id']%>/moments">see more moments of this user</a>
+                <div class="card-homepage-header">
+                    <img src="<%=result['user_avatar_url']%>" alt="" class="profile-image">
 
-        <img src="<%= result["image_url"]%>" alt="" class="home-momentimg">
-        <p class="user-text"><%= result["user_text"]%></p>
-        <a href="/users/moments/<%= result['id']%>">comment</a>
-        <a href="">like</a>
-        <a href="">block</a>
-        <a href="">DM</a>
-    </section>
-<% end %>
-<%end%>
-
+                    <% if result['user_name'] != nil && result['user_name'] != ""%>
+                    <span> <a href="/users/<%= result['user_id']%>/posts"> <%= result['user_name']%> </a>said: </span>
+                    <%else%>
+                    <span> <a href="/users/<%= result['user_id']%>/posts"> <%= result['email']%> </a>said:</span>
+                    <%end%>
+                </div>
+                    <div class="card-homepage-content">
+                        <p class="user-text"><%= result["content"]%></p>
+                    </div>
+                    <div class="card-homepage-image">
+                        <img src="<%= result["image_url"]%>" alt="" class="home-momentimg">
+                    </div>
+                    <div class="card-homepage-footer">
+                        <a href="/users/posts/<%= result['id']%>">comment</a>
+                    </div>
+            </div>
+        <% end %>
+    <%end%>
 </div>
-

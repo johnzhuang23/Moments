@@ -1,0 +1,56 @@
+
+
+<div class="card-homepage">
+
+<div class="card-homepage-header">
+    <% if user_post_avatar['user_avatar_url']!=nil %>
+    <img src="<%=user_post_avatar['user_avatar_url']%>" alt="" class="profile-image">
+    <% end %>
+    <% if  user_post_username['user_name']!=nil%>
+    <H2><%= user_post_username['user_name']%> said: </H2>
+    <% else %>
+    <H2><%= user_post_email['email']%> said: </H2>
+    <% end %>
+</div>
+
+    <div class="card-homepage-content">
+        <p class="user-text"><%= post[0]['content']%></p>
+    </div>
+
+    <div class="card-homepage-image">
+        <img src="<%=post[0]['image_url']%>" alt="" class="home-momentimg">
+    </div>
+
+
+     <div class="card-homepage-footer">
+        <span><%= post[0]['likes_count']%> people have liked it!</span>
+        <% if not_liked?(loggedin_user()['id'], post[0]['id'])%>
+            <form action="/like" method="post">
+            <input type="hidden" name="post_id" value="<%= post[0]['id']%>">
+            <input type="hidden" name="user_id" value="<%= loggedin_user()['id']%>">
+            <button> 👍 </button>
+            </form>
+        <% end %>
+        <% if liked?(loggedin_user()['id'], post[0]['id'])%>
+            <form action="/unlike" method="post">
+            <input type="hidden" name="post_id" value="<%= post[0]['id']%>">
+            <input type="hidden" name="user_id" value="<%= loggedin_user()['id']%>">
+            <button>👎</button>
+            </form>
+        <%end%>
+    </div>
+</div>
+<p><b>comments:</b></p>
+<% comments.each do |comment|%>
+<% if comment['user_name'] != nil %>
+    <p><%= comment['user_name']%> said: <%= comment['content']%></p>
+
+    <% else %>
+    <p><%= comment['email']%> said: <%= comment['content']%></p>
+    <% end %>
+<% end %>
+
+<form action="/comments/posts/<%=post[0]['id']%>" method="post" class="form-comment">
+<textarea name="content" id="" cols="30" rows="10"placeholder="write your comments"></textarea>
+    <p><button class="btn-comment">comment</button></p>
+</form>

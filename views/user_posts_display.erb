@@ -1,0 +1,18 @@
+
+
+<%if user['user_name'] %>%
+    <h1><%=user['user_name']%>'S Moments</h1>
+<% else %>
+    <h1><%=user['email']%>'S Moments</h1>
+<% end %>
+
+    <img src="<%=user['user_avatar_url']%>" alt="" class="profile-image">
+
+<div class="userpage">
+<% userposts.each do |userpost| %>
+<div class="card-homepage">
+    <p class="user-text"><%= userpost["content"]%></p>
+    <img src="<%= userpost["image_url"]%>" alt="">
+</div>
+<% end %>
+</div>

@@ -2,39 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Moments</title>
+  <title>Moments on Ruby</title>
+  <link rel='stylesheet' href='/stylesheets/main.css'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesheets/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto+Serif:wght@100;500&family=Rubik:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <h3><a href="/">HOME</a></h3>
+<div class="nav">
+<p><a href="/">Home</a></p>
   <% if logged_in? %>
-  <h3><a href="/moments/new">Post</a></h3>
-  <h3><a href="/mymoments">My Moments</a></h3>
+    <% if loggedin_user()["user_name"]!= nil %>
+      <h3>Welcome back,</h3>
+       <a href="/users/<%=user['id']%>/edit"><%= loggedin_user()["user_name"]%></a>
+       <div class="title-flex"></div>
+    <%else%>
+      <h3>Welcome back, </h3>
+      <a href="/users/<%=user['id']%>/edit"><%= loggedin_user()["email"]%></a>
+             <div class="title-flex"></div>
+
+    <%end%>
+<% if logged_in? %>
+  <p><a href="/posts/new">Post</a></p>
+  <p><a href="/myposts">My Moments</a></p>
   <% end %>
 
-  <% if logged_in? %>
-    <% if loggedin_user()["user_name"] && loggedin_user()["user_name"]!= "" %>
-      Welcome back <a href="/users/<%=user['id']%>/edit"><%= loggedin_user()["user_name"]%></a>
-    <%else%>
-      Welcome back <a href="/users/<%=user['id']%>/edit"><%= loggedin_user()["email"]%></a>
-    <%end%>
 
     <form action="/login" method="post">
         <input type="hidden" name="_method" value="delete">
-        <button>logout</button>
+        <p><button class="btn-logout">Log out</button></p>
       </form>
 
   <% else %>
-    <h3><a href="/login">Log In</a></h3>
-    <h3><a href="/signup">Sign Up</a></h3>
+    <p><a href="/login">Log In</a></p>
+    <p><a href="/signup">Sign Up</a></p>
   <% end %>  
-
-
+</div>
+<section>
+<div class="content">
   <%= yield %>
-
-
-
+</div>
+</section>
 </body>
 </html>

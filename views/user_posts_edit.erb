@@ -1,0 +1,28 @@
+
+<h1>My Moments</h1>
+
+<div class="userpage">
+
+<% userposts.each do |userpost| %>
+
+    <div class="card">
+        <img src="<%= userpost["image_url"]%>" alt="">
+        <p class="user-text"><%= userpost["content"]%></p>
+    </div>
+
+
+<% if userpost['content'] != nil || userpost['img_url'] != nil%>
+<div class="btns">
+        <button class ="btn-edit"><a href="/posts/<%=userpost['id']%>/edit">edit</a></button>
+        <form class ="btn-delete" action="/posts/<%=userpost['id']%>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button >delete</button>
+        </form>
+</div>
+    <%else%>
+        <p>Nothing to show? Say something <a href="/posts/new">here</a></p>    
+    <%end%>
+
+<% end %>
+
+</div>
