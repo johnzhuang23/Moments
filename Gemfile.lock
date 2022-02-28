@@ -17,7 +17,9 @@ GEM
     tilt (2.0.10)
 
 PLATFORMS
+  ruby
   x86_64-darwin-17
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt
